@@ -1,0 +1,15 @@
+-
+  ros1_package_name: 'carla_ros_connect'
+  ros1_message_name: 'NpcState'
+  ros2_package_name: 'ros2_connect'
+  ros2_message_name: 'NpcState'
+-
+  ros1_package_name: 'carla_ros_connect'
+  ros1_message_name: 'NpcStateArray'
+  ros2_package_name: 'ros2_connect'
+  ros2_message_name: 'NpcStateArray'
+-
+  ros1_package_name: 'carla_ros_connect'
+  ros1_message_name: 'StateEst'
+  ros2_package_name: 'ros2_connect'
+  ros2_message_name: 'StateEst'
