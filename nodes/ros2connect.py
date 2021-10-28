@@ -6,7 +6,7 @@ from rclpy.qos import qos_profile_sensor_data
 from rclpy.node import Node
 
 from ros2_connect.msg import StateEst, NpcState, NpcStateArray
-
+from arpae_common_msgs.msg import StateEst, NpcState, NpcStateArray
 
 class ConnectNode(Node):
     def __init__(self):
