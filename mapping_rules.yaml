@@ -13,3 +13,13 @@
   ros1_message_name: 'StateEst'
   ros2_package_name: 'ros2_connect'
   ros2_message_name: 'StateEst'
+-
+  ros1_package_name: 'carla_ros_connect'
+  ros1_message_name: 'SPaT'
+  ros2_package_name: 'ros2_connect'
+  ros2_message_name: 'SPaT'
+- 
+  ros1_package_name: 'carla_ros_connect'
+  ros1_message_name: 'SPaTArray'
+  ros2_package_name: 'ros2_connect'
+  ros2_message_name: 'SPaTArray'
