@@ -7,7 +7,7 @@ from rclpy.node import Node
 
 from ros2_connect.msg import StateEst, NpcState, NpcStateArray, SPaT, SPaTArray
 from arpae_common_msgs.msg import StateEst, NpcState, NpcStateArray, SPaT, SPaTArray
-from localization_msgs.msg import Obstacle
+# from localization_msgs.msg import Obstacle
 
 class ConnectNode(Node):
     def __init__(self):
@@ -15,7 +15,7 @@ class ConnectNode(Node):
         """Publisher"""
         self.pub = self.create_publisher(NpcStateArray, 'carla/npc_state_array2nuvo', qos_profile_sensor_data)
         self.pub2 = self.create_publisher(SPaTArray, 'carla/spats2nuvo', qos_profile_sensor_data)
-        self.pub_cohda = self.create_publisher(SPaT, 'cohda/spat2carla', qos_profile_sensor_data)
+        self.pub_cohda = self.create_publisher(SPaT, 'cohda/spat2carla', 10)
         timer_period = 0.1
         # self.i = 0
         self.timer = self.create_timer(timer_period, self.pub_callback)
@@ -25,7 +25,7 @@ class ConnectNode(Node):
         self.sub = self.create_subscription(NpcStateArray, 'carla/npc_state_array', self.sub_callback, qos_profile_sensor_data)
         self.sub2 = self.create_subscription(SPaTArray, 'carla/spats', self.sub2_callback, qos_profile_sensor_data)
         # From ROS2 Cohda
-        self.sub_cohda = self.create_subscription(Obstacle, '/localization/matched_obstacle', self.sub_cohda_callback, qos_profile_sensor_data)
+        self.sub_cohda = self.create_subscription(SPaT, '/localization/matched_obstacle_carla', self.sub_cohda_callback, qos_profile_sensor_data)
         self.npcs_carla = NpcStateArray()
         self.spats_carla = SPaTArray()
         self.spat_cohda = SPaT()
