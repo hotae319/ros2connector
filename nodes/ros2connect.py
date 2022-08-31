@@ -63,6 +63,8 @@ class ConnectNode(Node):
         cohda_msg = self.spat_cohda
         cohda_msg.time_r = 10.5
         cohda_msg.tl_state = 3
+        cohda_msg.signal_timing = 10.0
+        cohda_msg.signal_phase = 2
         # cohda_msg.signal_timing = self.spat_cohda.signal_timing
         self.pub_cohda.publish(cohda_msg)
 
