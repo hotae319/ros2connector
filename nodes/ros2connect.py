@@ -15,7 +15,7 @@ class ConnectNode(Node):
         """Publisher"""
         self.pub = self.create_publisher(NpcStateArray, 'carla/npc_state_array2nuvo', qos_profile_sensor_data)
         self.pub2 = self.create_publisher(SPaTArray, 'carla/spats2nuvo', qos_profile_sensor_data)
-        self.pub_cohda = self.create_publisher(SPaT, 'cohda/spat2carla', 10)
+        self.pub_cohda = self.create_publisher(SPaT, 'cohda/spat2carla', qos_profile_sensor_data)
         timer_period = 0.1
         # self.i = 0
         self.timer = self.create_timer(timer_period, self.pub_callback)
@@ -35,7 +35,7 @@ class ConnectNode(Node):
         self.npcs_carla.npc_states = msg.npc_states
         print('check')
     def sub2_callback(self, msg):
-        self.get_logger().info('i heard: "%s"' %msg.header)
+        self.get_logger().info('i heard: "%s"' %msg)
         # self.get_logger().info('i heard: "%f"' %msg.npc_states[0].loc.x)
         self.spats_carla.spats = msg.spats
         print('check')
@@ -45,6 +45,9 @@ class ConnectNode(Node):
         self.spat_cohda.signal_phase = msg.signal_phase
         self.spat_cohda.signal_timing = msg.signal_timing
         self.spat_cohda.stop_bar_distance = msg.stop_bar_distance
+        self.spat_cohda.tl_state = msg.signal_phase
+        self.spat_cohda.time_r = msg.signal_timing
+
     def pub_callback(self):
         # Publish CARLA NPCs to NUVO
         msg = NpcStateArray()
@@ -52,12 +55,15 @@ class ConnectNode(Node):
         self.pub.publish(msg)
         # Publish CARLA SPaTs to NUVO
         spat_msg = SPaTArray()
-        spat_msg = self.spats_carla
+        spat_msg.spats = self.spats_carla.spats
         self.pub2.publish(spat_msg)
         # Convert Cohda msg into SPaT msg and Publish it to CARLA(ROS1)
         cohda_msg = SPaT()
         print("what does empty SPaT have?:{}".format(cohda_msg))
         cohda_msg = self.spat_cohda
+        cohda_msg.time_r = 10.5
+        cohda_msg.tl_state = 3
+        # cohda_msg.signal_timing = self.spat_cohda.signal_timing
         self.pub_cohda.publish(cohda_msg)
 
 
